@@ -1,12 +1,16 @@
 /// <reference types="@emotion/react/types/css-prop" />
 
 export const GLOBAL_STYLES = {
-  "*": {
-    boxSizing: "border-box",
-  } as const,
-  "html, body, #root": {
+  '*': {
+    boxSizing: 'border-box',
     margin: 0,
     padding: 0,
-    height: "100%",
+  } as const,
+  'html, body, #root': {
+    height: '100%',
+    fontFamily: 'Inter',
+    fontSize: '16px',
+    fontWeight: 400,
+    boxSizing: 'border-box' as 'border-box',
   },
-};
+}
