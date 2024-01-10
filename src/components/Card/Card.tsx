@@ -10,7 +10,7 @@ import {
   CARD_TITLE,
   CARD_WRAPPER,
 } from '../../styles/card.styles'
-import { getImgSrc } from '../../pages/Cars/Cars'
+import { getImgSrc } from '../../api/helpers'
 
 interface CardProps {
   type: 'medium' | 'large'

@@ -6,7 +6,7 @@ import {
 } from '../../styles/dropdown.styles'
 
 const Dropdown: FC = () => {
-  const [showList, setShowList] = useState<boolean>(true)
+  const [showList, setShowList] = useState<boolean>(false)
 
   const handleClick = () => {
     setShowList((prev) => !prev)
