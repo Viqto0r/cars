@@ -1,9 +1,13 @@
-import { FC, useEffect } from 'react'
+import { FC, useCallback, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import Button from '../../components/Button/Button'
 import Card from '../../components/Card/Card'
 import { CARS } from '../../styles/cars.style'
-import { fetchCars, addInFavorite } from '../../store/slices/carSlice'
+import {
+  fetchCars,
+  addInFavorite,
+  removeFromFavorite,
+} from '../../store/slices/carSlice'
 import { favoriteIcon } from '../../icons/icons-paths'
 import { sortCars } from '../../utils/sortHandlers'
 import { filterCars } from '../../utils/filterHandlers'
@@ -24,11 +28,25 @@ const Cars: FC = () => {
     dispatch(fetchCars())
   }, [])
 
+  const handleFavoriteClick = useCallback(
+    (isFavorite: boolean, id: number) => {
+      if (isFavorite) {
+        dispatch(removeFromFavorite(id))
+        return
+      }
+      dispatch(addInFavorite(id))
+    },
+    [dispatch, removeFromFavorite, addInFavorite]
+  )
+
   const filteredCars = cars
     .filter(filterCars(filter.toLowerCase()))
     .sort(sortCars(by, field))
     .map((car) => {
       const { description, ...props } = car
+      const isFavorite = favoritesCars.includes(car)
+      console.log(isFavorite)
+
       return (
         <Card
           key={car.id}
@@ -46,10 +64,10 @@ const Cars: FC = () => {
             <Button
               key={1}
               type="transparent"
-              onClick={() => dispatch(addInFavorite(car.id))}
+              onClick={() => handleFavoriteClick(isFavorite, car.id)}
               size="xl-small"
               icons={favoriteIcon}
-              active={favoritesCars.includes(car)}
+              active={isFavorite}
               disabled={!car.availability}
             />,
           ]}
