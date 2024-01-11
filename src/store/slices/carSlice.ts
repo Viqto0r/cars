@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { Car } from '../../graphql/generated'
 import { HOST } from '../../api/host'
+import { Sort } from '../../types/types'
 
 interface IResponse {
   data: { cars: Car[] }
@@ -31,6 +32,7 @@ export interface CarsState {
   isError: boolean
   errorMessage: string
   filter: string
+  sort: Sort
 }
 
 const initialState: CarsState = {
@@ -39,6 +41,11 @@ const initialState: CarsState = {
   isError: false,
   errorMessage: '',
   filter: '',
+  sort: {
+    by: 'more',
+    field: 'model_year',
+    id: '0',
+  },
 }
 
 export const carsSlice = createSlice({
@@ -46,8 +53,10 @@ export const carsSlice = createSlice({
   initialState,
   reducers: {
     setFilter(state, { payload }: PayloadAction<string>) {
-      console.log(state.filter)
       state.filter = payload
+    },
+    setSort(state, { payload }: PayloadAction<Sort>) {
+      state.sort = payload
     },
   },
   extraReducers(builder) {
@@ -70,5 +79,5 @@ export const carsSlice = createSlice({
   },
 })
 
-export const { setFilter } = carsSlice.actions
+export const { setFilter, setSort } = carsSlice.actions
 export default carsSlice.reducer
