@@ -1,8 +1,10 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App'
 import { Provider } from 'react-redux'
+import { RouterProvider } from 'react-router-dom'
 import { store } from './store/store'
+
+import { router } from './router/router'
 
 const rootNodeId = 'root'
 
@@ -17,7 +19,7 @@ const root = createRoot(container)
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
 )
