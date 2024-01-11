@@ -11,10 +11,10 @@ import './fonts/fonts.css'
 const App: FC = () => {
   return (
     <div css={APP}>
-      <Header />
+      <Header active />
       <Filter />
       <Cars />
-      <Favorites count={5} />
+      <Favorites />
       <Global styles={GLOBAL_STYLES} />
     </div>
   )
