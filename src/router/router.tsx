@@ -1,8 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from '../App'
-import Cars from '../pages/Cars/Cars'
-import Favorites from '../pages/Favorites/Favorites'
-import Filter from '../components/Filter/Filter'
+import FavoritesPage from '../pages/FavoritesPage/FavoritesPage'
+import CarsPage from '../pages/CarsPage/CarsPage'
 
 export const router = createBrowserRouter([
   {
@@ -11,16 +10,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: (
-          <>
-            <Filter />
-            <Cars />
-          </>
-        ),
+        element: <CarsPage />,
       },
       {
         path: 'favorites',
-        element: <Favorites />,
+        element: <FavoritesPage />,
       },
     ],
   },

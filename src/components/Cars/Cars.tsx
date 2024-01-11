@@ -1,10 +1,9 @@
-import { FC, useCallback, useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import Button from '../../components/Button/Button'
-import Card from '../../components/Card/Card'
+import { FC, useCallback } from 'react'
+import { useAppDispatch } from '../../store/hooks'
+import Button from '../Button/Button'
+import Card from '../Card/Card'
 import { CARS } from '../../styles/cars.style'
 import {
-  fetchCars,
   addInFavorite,
   removeFromFavorite,
   CarsState,
