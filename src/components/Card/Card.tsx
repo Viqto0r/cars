@@ -17,15 +17,6 @@ interface CardProps extends Omit<Car, 'description'> {
   type: 'medium' | 'large'
   buttons: ReactElement[]
   description?: string
-  //id: number
-  //brand: string
-  //model: string
-  //color: string
-  //model_year: number
-  //img_src: string
-  //price: string
-  //availability: boolean
-  //description?: string
 }
 
 const Card: FC<CardProps> = ({
