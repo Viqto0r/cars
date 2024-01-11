@@ -1,20 +1,25 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { Global } from '@emotion/react'
-import Cars from './pages/Cars/Cars'
 import Header from './components/Header/Header'
-import Filter from './components/Filter/Filter'
-import Favorites from './pages/Favorites/Favorites'
 import { APP } from './styles/app.style'
 import { GLOBAL_STYLES } from './styles/global.styles'
+import { Outlet } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from './store/hooks'
 import './fonts/fonts.css'
+import { fetchCars } from './store/slices/carSlice'
 
 const App: FC = () => {
+  const cars = useAppSelector((state) => state.cars)
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(fetchCars())
+  }, [])
+
   return (
     <div css={APP}>
-      <Header active />
-      <Filter />
-      <Cars />
-      <Favorites />
+      <Header active={cars.favoritesCars.length > 0} />
+      <Outlet context={cars} />
       <Global styles={GLOBAL_STYLES} />
     </div>
   )

@@ -18,7 +18,7 @@ export interface ButtonProps {
   active?: boolean
   menu?: boolean
   label?: string
-  onClick: () => void
+  onClick?: () => void
 }
 
 const Button: FC<ButtonProps> = ({

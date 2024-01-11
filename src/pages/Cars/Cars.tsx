@@ -7,26 +7,24 @@ import {
   fetchCars,
   addInFavorite,
   removeFromFavorite,
+  CarsState,
 } from '../../store/slices/carSlice'
 import { favoriteIcon } from '../../icons/icons-paths'
 import { sortCars } from '../../utils/sortHandlers'
 import { filterCars } from '../../utils/filterHandlers'
+import { useOutletContext } from 'react-router-dom'
 
 const Cars: FC = () => {
-  const dispatch = useAppDispatch()
   const {
-    allCars: cars,
     favoritesCars,
-    isLoading,
-    isError,
+    allCars: cars,
     errorMessage,
     filter,
+    isError,
+    isLoading,
     sort: { by, field },
-  } = useAppSelector((state) => state.cars)
-
-  useEffect(() => {
-    dispatch(fetchCars())
-  }, [])
+  } = useOutletContext<CarsState>()
+  const dispatch = useAppDispatch()
 
   const handleFavoriteClick = useCallback(
     (isFavorite: boolean, id: number) => {
@@ -45,7 +43,6 @@ const Cars: FC = () => {
     .map((car) => {
       const { description, ...props } = car
       const isFavorite = favoritesCars.includes(car)
-      console.log(isFavorite)
 
       return (
         <Card
