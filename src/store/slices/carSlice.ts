@@ -27,7 +27,8 @@ export const fetchCars = createAsyncThunk('cars/fetchCars', async () => {
 })
 
 export interface CarsState {
-  data: Car[]
+  allCars: Car[]
+  favoritesCars: Car[]
   isLoading: boolean
   isError: boolean
   errorMessage: string
@@ -36,7 +37,8 @@ export interface CarsState {
 }
 
 const initialState: CarsState = {
-  data: [],
+  allCars: [],
+  favoritesCars: [],
   isLoading: false,
   isError: false,
   errorMessage: '',
@@ -58,6 +60,15 @@ export const carsSlice = createSlice({
     setSort(state, { payload }: PayloadAction<Sort>) {
       state.sort = payload
     },
+    addInFavorite(state, { payload }: PayloadAction<number>) {
+      const car = state.allCars.find((car) => car.id === payload)
+      if (car) state.favoritesCars.push(car)
+    },
+    removeFromFavorite(state, { payload }: PayloadAction<number>) {
+      state.favoritesCars = state.favoritesCars.filter(
+        (car) => car.id !== payload
+      )
+    },
   },
   extraReducers(builder) {
     builder.addCase(fetchCars.pending, (state) => {
@@ -73,11 +84,12 @@ export const carsSlice = createSlice({
     })
 
     builder.addCase(fetchCars.fulfilled, (state, { payload }) => {
-      state.data = payload
+      state.allCars = payload
       state.isLoading = false
     })
   },
 })
 
-export const { setFilter, setSort } = carsSlice.actions
+export const { setFilter, setSort, addInFavorite, removeFromFavorite } =
+  carsSlice.actions
 export default carsSlice.reducer

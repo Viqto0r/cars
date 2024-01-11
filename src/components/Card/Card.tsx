@@ -11,19 +11,21 @@ import {
   CARD_WRAPPER,
 } from '../../styles/card.styles'
 import { getImgSrc } from '../../api/helpers'
+import { Car } from '../../graphql/generated'
 
-interface CardProps {
+interface CardProps extends Omit<Car, 'description'> {
   type: 'medium' | 'large'
-  id: number
-  brand: string
-  model: string
-  color: string
-  model_year: number
-  img_src: string
-  price: string
-  availability: boolean
-  description?: string
   buttons: ReactElement[]
+  description?: string
+  //id: number
+  //brand: string
+  //model: string
+  //color: string
+  //model_year: number
+  //img_src: string
+  //price: string
+  //availability: boolean
+  //description?: string
 }
 
 const Card: FC<CardProps> = ({

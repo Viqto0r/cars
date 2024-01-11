@@ -15,7 +15,6 @@ export const FAFORITES = css`
   display: flex;
   flex-direction: column;
   gap: 27px;
-  padding-top: 64px;
-	padding-bottom:130px;
+	padding:64px 40px 130px
 	}
 `

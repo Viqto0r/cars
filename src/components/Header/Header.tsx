@@ -8,7 +8,11 @@ import {
 } from '../../styles/header.style'
 import { favoriteIcon } from '../../icons/icons-paths'
 
-const Header: FC = () => {
+interface HeaderProps {
+  active: true
+}
+
+const Header: FC<HeaderProps> = ({ active }) => {
   return (
     <header css={HEADER}>
       <img src="/src/img/Logo.svg" alt="Logo" css={HEADER_LOGO} />
@@ -31,6 +35,7 @@ const Header: FC = () => {
         label="Избранное"
         icons={favoriteIcon}
         onClick={() => {}}
+        active={active}
       />
     </header>
   )
