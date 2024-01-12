@@ -7,14 +7,15 @@ import {
 import Card from '../../components/Card/Card'
 import Button from '../../components/Button/Button'
 import { deleteIcon } from '../../icons/icons-paths'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { useAppDispatch } from '../../store/hooks'
 import { getEnding } from '../../utils/stringFunctions'
-import { removeFromFavorite } from '../../store/slices/carSlice'
+import { CarsState, removeFromFavorite } from '../../store/slices/carSlice'
+import { useOutletContext } from 'react-router-dom'
 
 interface FavoritesProps {}
 
-const Favorites: FC<FavoritesProps> = () => {
-  const { favoritesCars } = useAppSelector((state) => state.cars)
+const FavoritesPage: FC<FavoritesProps> = () => {
+  const { favoritesCars } = useOutletContext<CarsState>()
   const dispatch = useAppDispatch()
 
   const outputCars = favoritesCars.map((car) => (
@@ -53,4 +54,4 @@ const Favorites: FC<FavoritesProps> = () => {
   )
 }
 
-export default memo(Favorites)
+export default memo(FavoritesPage)
