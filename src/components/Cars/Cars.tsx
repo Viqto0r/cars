@@ -12,6 +12,7 @@ import { favoriteIcon } from '../../icons/icons-paths'
 import { sortCars } from '../../utils/sortHandlers'
 import { filterCars } from '../../utils/filterHandlers'
 import { useOutletContext } from 'react-router-dom'
+import Message from '../Message/Message'
 
 const Cars: FC = () => {
   const {
@@ -73,13 +74,18 @@ const Cars: FC = () => {
   const carsOutput = filteredCars.length ? (
     filteredCars
   ) : (
-    <p>Машины не найдены</p>
+    <Message text="Машины не найдены" />
   )
 
   return (
     <div css={CARS}>
-      {isLoading && <p>...loading</p>}
-      {isError && <p>{errorMessage}</p>}
+      {isLoading && <Message text="...загрузка" />}
+      {isError && (
+        <Message
+          text={`Произошла ошибка: ${errorMessage}. Попробуйте еще раз`}
+          isError
+        />
+      )}
       {carsOutput}
     </div>
   )
