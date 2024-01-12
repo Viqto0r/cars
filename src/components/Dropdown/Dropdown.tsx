@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, memo, useState } from 'react'
 import {
   DROPDOWN,
   DROPDOWN_ACTIVE,
@@ -66,4 +66,4 @@ const Dropdown: FC = () => {
   )
 }
 
-export default Dropdown
+export default memo(Dropdown)

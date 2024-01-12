@@ -1,4 +1,4 @@
-import { FC, ReactElement } from 'react'
+import { FC, ReactElement, memo } from 'react'
 import {
   CARD_ACTIONS,
   CARD_DESCRIPTION,
@@ -57,4 +57,4 @@ const Card: FC<CardProps> = ({
   )
 }
 
-export default Card
+export default memo(Card)

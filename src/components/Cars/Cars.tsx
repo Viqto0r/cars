@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react'
+import { FC, memo, useCallback } from 'react'
 import { useAppDispatch } from '../../store/hooks'
 import Button from '../Button/Button'
 import Card from '../Card/Card'
@@ -85,4 +85,4 @@ const Cars: FC = () => {
   )
 }
 
-export default Cars
+export default memo(Cars)

@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import {
   FAVORITES_LIST,
   FAVORITES_TITLE,
@@ -53,4 +53,4 @@ const Favorites: FC<FavoritesProps> = () => {
   )
 }
 
-export default Favorites
+export default memo(Favorites)

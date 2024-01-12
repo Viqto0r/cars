@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import Button from '../Button/Button'
 import {
   HEADER,
@@ -46,4 +46,4 @@ const Header: FC<HeaderProps> = ({ active }) => {
   )
 }
 
-export default Header
+export default memo(Header)

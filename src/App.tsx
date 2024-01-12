@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, memo, useEffect } from 'react'
 import { Global } from '@emotion/react'
 import Header from './components/Header/Header'
 import { APP } from './styles/app.style'
@@ -25,4 +25,4 @@ const App: FC = () => {
   )
 }
 
-export default App
+export default memo(App)

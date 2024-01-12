@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { BUTTON, BUTTON_LABEL, BUTTON_MENU } from '../../styles/button.styles'
 import { BtnSize, BtnType } from '../../types/types'
 
@@ -51,4 +51,4 @@ const Button: FC<ButtonProps> = ({
   )
 }
 
-export default Button
+export default memo(Button)

@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useCallback } from 'react'
+import { ChangeEvent, FC, memo, useCallback } from 'react'
 import Button from '../Button/Button'
 import { SEARCH, SEARCH_INPUT } from '../../styles/search.style'
 import { searchIcon } from '../../icons/icons-paths'
@@ -40,4 +40,4 @@ const Search: FC = () => {
   )
 }
 
-export default Search
+export default memo(Search)
