@@ -1,4 +1,5 @@
-import { FC, ReactElement, memo } from 'react'
+import { FC, memo } from 'react'
+import CardButtons from './CardButtons/CardButtons'
 import {
   CARD_ACTIONS,
   CARD_DESCRIPTION,
@@ -12,15 +13,17 @@ import {
 } from '../../styles/card.styles'
 import { getImgSrc } from '../../api/helpers'
 import { Car } from '../../graphql/generated'
+import { SizesType } from '../../types/types'
 
-interface CardProps extends Omit<Car, 'description'> {
-  type: 'medium' | 'large'
-  buttons: ReactElement[]
+interface ICardProps extends Omit<Car, 'description'> {
+  size: SizesType
   description?: string
+  isFavorite?: boolean
 }
 
-const Card: FC<CardProps> = ({
-  type,
+const Card: FC<ICardProps> = ({
+  id,
+  size,
   color,
   model,
   brand,
@@ -28,11 +31,11 @@ const Card: FC<CardProps> = ({
   img_src,
   model_year,
   availability,
-  buttons,
   description,
+  isFavorite = false,
 }) => {
   return (
-    <div css={CARD_WRAPPER(type, !availability)}>
+    <div css={CARD_WRAPPER(size, !availability)}>
       <div css={CARD_IMG_WRAPPER}>
         <img
           src={getImgSrc(img_src) ?? undefined}
@@ -51,7 +54,14 @@ const Card: FC<CardProps> = ({
           <span>Цвет: {color}</span>
         </div>
         <div css={CARD_PRICE}> от {price}</div>
-        <div css={CARD_ACTIONS}>{buttons}</div>
+        <div css={CARD_ACTIONS}>
+          <CardButtons
+            availability={availability}
+            id={id}
+            isFavorite={isFavorite}
+            size={size}
+          />
+        </div>
       </div>
     </div>
   )

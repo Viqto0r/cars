@@ -1,51 +1,47 @@
 import { FC, memo, useCallback } from 'react'
-import Button from '../Button/Button'
 import {
   HEADER,
   HEADER_CONTACTS,
   HEADER_LOGO,
   HEADER_PHONE,
-} from '../../styles/header.style'
-import { favoriteIcon } from '../../icons/icons-paths'
+} from '../../styles/header.styles'
 import { useNavigate } from 'react-router-dom'
+import { useAppSelector } from '../../store/hooks'
+import { isFavoriteBtnActive } from '../../store/slices/favoritesCarsIdsSlice'
+import Button from '../Button/Button'
+import Icon from '../Icon/Icon'
 
-interface HeaderProps {
-  active: boolean
-}
-
-const Header: FC<HeaderProps> = ({ active }) => {
+const Header: FC = () => {
   const navigate = useNavigate()
+  const active = useAppSelector(isFavoriteBtnActive)
 
-  const handleClick = (path: string) => {
-    return useCallback(() => navigate(path), [navigate])
-  }
+  const handleClick = useCallback(
+    (path: string) => () => navigate(path),
+    [navigate]
+  )
 
   return (
     <header css={HEADER}>
       <img src="/src/img/Logo.svg" alt="Logo" css={HEADER_LOGO} />
-
       <Button
-        size="x-small"
+        size="small"
         type="primary"
-        onClick={handleClick('')}
         text="Каталог"
+        onClick={handleClick('')}
         menu
       />
-
       <address css={HEADER_CONTACTS}>
         <span>Москва, Волгоградский пр-кт, 43, стр 1</span>
         <a css={HEADER_PHONE} href="tel:+78005553535">
           +7 800 555 35 35
         </a>
       </address>
-
       <Button
-        size="xxl-small"
+        size="s-medium"
         type="transparent"
         onClick={handleClick('/favorites')}
-        label="Избранное"
-        icons={favoriteIcon}
-        active={active}
+        icon={<Icon type="favorites" active={active} />}
+        text="Избранное"
       />
     </header>
   )

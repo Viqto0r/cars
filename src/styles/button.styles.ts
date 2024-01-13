@@ -1,5 +1,4 @@
 import { css } from '@emotion/react'
-import { IIcons } from './../components/Button/Button'
 import { BtnSize, BtnType } from '../types/types'
 import {
   BLACK,
@@ -14,19 +13,18 @@ import {
 } from './variables.styles'
 
 const BUTTON_XXLSMALL = css`
-  width: 27px;
-  height: 24px;
+  padding: 6px;
 `
-const BUTTON_XLSMALL = css`
-  width: 27px;
-  height: 27px;
-`
+const BUTTON_XLSMALL = css``
 const BUTTON_XSMALL = css`
-  padding: 9px 26px;
-`
-const BUTTON_SMALL = css`
   width: 56px;
   height: 57px;
+`
+const BUTTON_SMALL = css`
+  padding: 9px 26px;
+`
+const BUTTON_SMEDIUM = css`
+  min-width: 126px;
 `
 const BUTTON_MEDIUM = css`
   padding: 19px 99px;
@@ -35,12 +33,7 @@ const BUTTON_LARGE = css`
   padding: 19px 34px;
 `
 export const BUTTON_MENU = css``
-export const BUTTON_LABEL = css``
-
-const getBackground = (color: string, icon: string) =>
-  css`
-    background: ${color} url(${icon}) no-repeat center;
-  `
+export const BUTTON_INNER = css``
 
 const getBtnSize = (size: BtnSize) => {
   switch (size) {
@@ -52,6 +45,8 @@ const getBtnSize = (size: BtnSize) => {
       return BUTTON_XSMALL
     case 'small':
       return BUTTON_SMALL
+    case 's-medium':
+      return BUTTON_SMEDIUM
     case 'medium':
       return BUTTON_MEDIUM
     case 'large':
@@ -59,36 +54,24 @@ const getBtnSize = (size: BtnSize) => {
   }
 }
 
-const getBtnType = (type: BtnType, icons: IIcons, active: boolean) => {
+const getBtnType = (type: BtnType) => {
   switch (type) {
     case 'primary':
-      return BUTTON_PRIMARY(icons, active)
+      return BUTTON_PRIMARY()
     case 'danger':
-      return BUTTON_DANGER(icons, active)
+      return BUTTON_DANGER()
     case 'transparent':
-      return BUTTON_TRANSPARENT(icons, active)
+      return BUTTON_TRANSPARENT()
   }
 }
 
-const getIconState = (icons: IIcons, active: boolean) => {
-  let defIcon = icons.default
-  let actIcon = icons.active
-
-  active && ([defIcon, actIcon] = [actIcon, defIcon])
-  return [defIcon, actIcon]
-}
-
-export const BUTTON = (
-  type: BtnType,
-  size: BtnSize,
-  icons: IIcons,
-  active: boolean
-) => css`
+export const BUTTON = (type: BtnType, size: BtnSize) => css`
+  position: relative;
   display: flex;
+  justify-content: center;
   align-items: center;
   border-radius: 5px;
   border: none;
-  color: ${WHITE};
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -96,7 +79,7 @@ export const BUTTON = (
     margin-right: 7px;
   }
   ${getBtnSize(size)}
-  ${getBtnType(type, icons, active)}
+  ${getBtnType(type)}
 	.css-${BUTTON_MENU.name} {
     display: flex;
     align-items: center;
@@ -126,58 +109,52 @@ export const BUTTON = (
       }
     }
   }
-  .css-${BUTTON_LABEL.name} {
-    margin-left: 39px;
+  .css-${BUTTON_INNER.name} {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 `
 
-const BUTTON_PRIMARY = (icons: IIcons, active: boolean) => {
-  const [defIcon, actIcon] = getIconState(icons, active)
-
+const BUTTON_PRIMARY = () => {
   return css`
-	${getBackground(PRIMARY_DEFAULT, defIcon)}
-	&:hover{${getBackground(PRIMARY_HOVER, icons.hover)}}
-	&:active{${getBackground(PRIMARY_ACTIVE, actIcon)}}
-	&:disabled{${getBackground(
-    PRIMARY_DISABLED,
-    icons.disabled
-  )};cursor:default;color:${BLACK}}}
-	`
-}
-
-const BUTTON_DANGER = (icons: IIcons, active: boolean) => {
-  const [defIcon, actIcon] = getIconState(icons, active)
-  return css`
-    border: 2px solid ${DANGER_DEFAULT};
-    color: ${DANGER_DEFAULT};
-    ${getBackground(WHITE, defIcon)}
+    color: ${WHITE};
+    line-height: 18px;
+    background-color: ${PRIMARY_DEFAULT};
     &:hover {
-      ${getBackground(DANGER_DEFAULT, icons.hover)}
-      border-color:${DANGER_DEFAULT}
-			color:${WHITE}
+      background-color: ${PRIMARY_HOVER};
     }
     &:active {
-      ${getBackground(DANGER_ACTIVE, actIcon)}
-      border-color:${DANGER_ACTIVE}
-			color:${WHITE}
+      background-color: ${PRIMARY_ACTIVE};
+    }
+    &:disabled {
+      background-color: ${PRIMARY_DISABLED};
+      cursor: default;
+      color: ${BLACK};
     }
   `
 }
 
-const BUTTON_TRANSPARENT = (icons: IIcons, active: boolean) => {
-  const [defIcon, actIcon] = getIconState(icons, active)
-
+const BUTTON_DANGER = () => {
   return css`
-    ${getBackground(TRANSPARENT, defIcon)};
-    color: ${BLACK};
+    border: 2px solid ${DANGER_DEFAULT};
+    color: ${DANGER_DEFAULT};
+    background-color: ${WHITE};
     &:hover {
-      ${getBackground(TRANSPARENT, icons.hover)}
+      background-color: ${DANGER_DEFAULT};
+      border-color: ${DANGER_DEFAULT};
+      color: ${WHITE};
     }
     &:active {
-      ${getBackground(TRANSPARENT, actIcon)}
+      background-color: ${DANGER_ACTIVE};
+      border-color: ${DANGER_ACTIVE};
+      color: ${WHITE};
     }
-    &:disabled {
-      ${getBackground(TRANSPARENT, icons.disabled)}
-    }
+  `
+}
+
+const BUTTON_TRANSPARENT = () => {
+  return css`
+    background-color: ${TRANSPARENT};
   `
 }

@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import { GRAY, GRAY2, WHITE } from './variables.styles'
-import { CardType } from '../types/types'
+import { SizesType } from '../types/types'
 
 export const CARD_IMG_WRAPPER = css``
 export const CARD_TITLE = css``
@@ -11,7 +11,7 @@ export const CARD_PRICE = css``
 export const CARD_SPECIFICATION = css``
 export const CARD_DESCRIPTION = css``
 
-export const CARD_WRAPPER = (type: CardType, disabled: boolean) => {
+export const CARD_WRAPPER = (type: SizesType, disabled: boolean) => {
   const isMedium = type === 'medium'
   return css`
     display: flex;
