@@ -1,13 +1,13 @@
-import { FC, useState } from 'react'
+import { FC, memo, useState } from 'react'
 import {
   DROPDOWN,
   DROPDOWN_ACTIVE,
   DROPDOWN_LIST,
 } from '../../styles/dropdown.styles'
 import { Car } from '../../graphql/generated'
-import { Sort, SortType } from '../../types/types'
+import { ISort, SortType } from '../../types/types'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { setSort } from '../../store/slices/carSlice'
+import { setSort } from '../../store/slices/sortSlice'
 
 interface SortList {
   id: string
@@ -17,18 +17,18 @@ interface SortList {
 }
 
 const sortList: SortList[] = [
-  { id: '0', text: 'Сначала в наличии', field: 'availability', type: 'more' },
-  { id: '1', text: 'По имени (A-Z)', field: 'brand', type: 'less' },
-  { id: '2', text: 'По имени (Z-A)', field: 'brand', type: 'more' },
-  { id: '3', text: 'Сначала новее', field: 'model_year', type: 'more' },
-  { id: '4', text: 'Сначала старше', field: 'model_year', type: 'less' },
-  { id: '5', text: 'Сначала дешевле', field: 'price', type: 'less' },
-  { id: '6', text: 'Сначала дороже', field: 'price', type: 'more' },
+  { id: '0', text: 'Сначала в наличии', field: 'availability', type: 'asc' },
+  { id: '1', text: 'По имени (A-Z)', field: 'brand', type: 'desc' },
+  { id: '2', text: 'По имени (Z-A)', field: 'brand', type: 'asc' },
+  { id: '3', text: 'Сначала новее', field: 'model_year', type: 'asc' },
+  { id: '4', text: 'Сначала старше', field: 'model_year', type: 'desc' },
+  { id: '5', text: 'Сначала дешевле', field: 'price', type: 'desc' },
+  { id: '6', text: 'Сначала дороже', field: 'price', type: 'asc' },
 ]
 
 const Dropdown: FC = () => {
   const dispatch = useAppDispatch()
-  const { id } = useAppSelector((state) => state.cars.sort)
+  const id = useAppSelector((state) => state.sort.id)
   const [showList, setShowList] = useState<boolean>(false)
 
   const handleOpenClick = () => {
@@ -42,7 +42,7 @@ const Dropdown: FC = () => {
       field,
       by: type,
       id,
-    } as Sort
+    } as ISort
 
     dispatch(setSort(data))
   }
@@ -66,4 +66,4 @@ const Dropdown: FC = () => {
   )
 }
 
-export default Dropdown
+export default memo(Dropdown)

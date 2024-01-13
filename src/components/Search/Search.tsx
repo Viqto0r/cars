@@ -1,14 +1,14 @@
-import { ChangeEvent, FC, useCallback } from 'react'
-import Button from '../Button/Button'
-import { SEARCH, SEARCH_INPUT } from '../../styles/search.style'
-import { searchIcon } from '../../icons/icons-paths'
+import { ChangeEvent, FC, memo, useCallback } from 'react'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { setFilter } from '../../store/slices/carSlice'
+import ButtonTest from '../Button/Button'
+import Icon from '../Icon/Icon'
 import { debounce } from '../../utils/debounce'
+import { setFilter } from '../../store/slices/filterSlice'
+import { SEARCH, SEARCH_INPUT } from '../../styles/search.styles'
 
 const Search: FC = () => {
   const dispatch = useAppDispatch()
-  const { filter } = useAppSelector((state) => state.cars)
+  const filter = useAppSelector((state) => state.filter)
 
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +20,10 @@ const Search: FC = () => {
     debounce,
     handleChange,
   ])
-  const handleClick = useCallback(() => dispatch(setFilter(filter)), [])
+  const handleClick = useCallback(
+    () => dispatch(setFilter(filter)),
+    [dispatch, filter, setFilter]
+  )
 
   return (
     <div css={SEARCH}>
@@ -30,14 +33,14 @@ const Search: FC = () => {
         css={SEARCH_INPUT}
         onChange={debouncedFilter}
       />
-      <Button
-        size="xl-small"
+      <ButtonTest
+        size="xxl-small"
         type="primary"
-        icons={searchIcon}
+        icon={<Icon type="search" />}
         onClick={handleClick}
       />
     </div>
   )
 }
 
-export default Search
+export default memo(Search)

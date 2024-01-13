@@ -1,54 +1,40 @@
-import { FC } from 'react'
-import { BUTTON, BUTTON_LABEL, BUTTON_MENU } from '../../styles/button.styles'
+import { FC, ReactNode, memo } from 'react'
+import { BUTTON_INNER, BUTTON_MENU } from '../../styles/button.styles'
 import { BtnSize, BtnType } from '../../types/types'
+import { BUTTON } from '../../styles/button.styles'
 
-export interface IIcons {
-  default: string
-  hover: string
-  active: string
-  disabled: string
-}
-
-export interface ButtonProps {
-  text?: string
+interface IButtonProps {
   size: BtnSize
   type: BtnType
-  icons?: IIcons
+  text?: string
+  icon?: ReactNode
   disabled?: boolean
-  active?: boolean
   menu?: boolean
-  label?: string
   onClick?: () => void
 }
 
-const Button: FC<ButtonProps> = ({
+const Button: FC<IButtonProps> = ({
   text,
   type,
   size,
-  icons = { active: '', default: '', disabled: '', hover: '' },
   disabled = false,
   onClick,
-  active = false,
-  label,
   menu,
+  icon,
 }) => {
   return (
-    <button
-      css={BUTTON(type, size, icons, active)}
-      disabled={disabled}
-      onClick={onClick}
-    >
-      <>
-        {menu && (
-          <span css={BUTTON_MENU}>
-            <span></span>
-          </span>
-        )}
-        <span>{text}</span>
-        {label && <span css={BUTTON_LABEL}>{label}</span>}
-      </>
+    <button disabled={disabled} onClick={onClick} css={BUTTON(type, size)}>
+      {menu && (
+        <span css={BUTTON_MENU}>
+          <span></span>
+        </span>
+      )}
+      <div css={BUTTON_INNER}>
+        {icon}
+        {text && <span>{text}</span>}
+      </div>
     </button>
   )
 }
 
-export default Button
+export default memo(Button)

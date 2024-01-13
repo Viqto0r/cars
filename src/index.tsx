@@ -1,10 +1,11 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
-import { RouterProvider } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { store } from './store/store'
-
-import { router } from './router/router'
+import App from './App'
+import CarsPage from './pages/CarsPage/CarsPage'
+import FavoritesPage from './pages/FavoritesPage/FavoritesPage'
 
 const rootNodeId = 'root'
 
@@ -19,7 +20,14 @@ const root = createRoot(container)
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="" element={<App />}>
+            <Route index element={<CarsPage />} />
+            <Route path="/favorites" element={<FavoritesPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 )
