@@ -7,7 +7,7 @@ interface ISpinner {
 
 const Spinner: FC<ISpinner> = ({ fullscreen }) => {
   return (
-    <img css={SPINNER(fullscreen)} src="/src/icons/Spinner.svg" alt="loading" />
+    <img css={SPINNER(fullscreen)} src="/icons/Spinner.svg" alt="loading" />
   )
 }
 

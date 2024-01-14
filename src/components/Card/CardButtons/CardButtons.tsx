@@ -7,12 +7,12 @@ import Icon from '../../Icon/Icon'
 
 interface ICardBtnsProps {
   id: number
-  availability: boolean
+  disabled: boolean
   isFavorite: boolean
   size: SizesType
 }
 
-const CardBtns: FC<ICardBtnsProps> = ({ isFavorite, id, size }) => {
+const CardBtns: FC<ICardBtnsProps> = ({ isFavorite, id, size, disabled }) => {
   const dispatch = useAppDispatch()
   const handleClick = useCallback(() => {
     dispatch(toggleFavorites(id))
@@ -21,12 +21,25 @@ const CardBtns: FC<ICardBtnsProps> = ({ isFavorite, id, size }) => {
   if (size === 'medium') {
     return (
       <>
-        <Button size="medium" type="primary" text="Купить" />
+        <Button
+          size="medium"
+          type="primary"
+          text="Купить"
+          disabled={disabled}
+        />
         <Button
           size="xl-small"
           type="transparent"
-          icon={<Icon type="favorites" active={isFavorite} />}
+          icon={
+            <Icon
+              type="favorites"
+              active={isFavorite}
+              disabled={disabled}
+              hover
+            />
+          }
           onClick={handleClick}
+          disabled={disabled}
         />
       </>
     )
@@ -34,12 +47,18 @@ const CardBtns: FC<ICardBtnsProps> = ({ isFavorite, id, size }) => {
 
   return (
     <>
-      <Button size="large" type="primary" text="Выбрать комплектацию" />
+      <Button
+        size="large"
+        type="primary"
+        text="Выбрать комплектацию"
+        disabled={disabled}
+      />
       <Button
         size="x-small"
         type="danger"
-        icon={<Icon type="trash" />}
+        icon={<Icon type="trash" disabled={disabled} hover />}
         onClick={handleClick}
+        disabled={disabled}
       />
     </>
   )

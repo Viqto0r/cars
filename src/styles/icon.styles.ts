@@ -1,78 +1,92 @@
 import { css } from '@emotion/react'
 
+const getIconName = (active: boolean, disabled: boolean, iconType: string) => {
+  if (disabled) {
+    return `${iconType}-Disabled.svg`
+  } else if (active) {
+    return `${iconType}-Active.svg`
+  } else {
+    return `${iconType}-Default.svg`
+  }
+}
+
+const WRAPPER = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+`
+
 export const ICON = (width: string, heigth: string, iconName: string) => {
   return css`
     display: inline-block;
     width: ${width};
     height: ${heigth};
     position: relative;
-    background-image: url(/src/icons/${iconName});
+    background-image: url(/icons/${iconName});
   `
 }
 
-export const ICON_LAYOUT = css`
-  display: block;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  background-color: transparent;
-  z-index: 1;
+const getHoverStyles = (
+  disabled: boolean,
+  hover: boolean,
+  IconsType: string
+) => {
+  let styles = ``
+  if (disabled) return styles
+  if (hover) {
+    styles += `&:hover > span {
+      background-image: url(/icons/${IconsType}-Hover.svg);
+    }`
+  }
+  styles += `&:active > span {
+    background-image: url(/icons/${IconsType}-Active.svg);
+  }`
+
+  return styles
+}
+
+export const FAFORITES_ICON = (active: boolean, disabled: boolean) => {
+  const iconName = getIconName(active, disabled, 'Favorite')
+
+  return css`
+    ${ICON('27px', '24px', iconName)};
+  `
+}
+
+export const FAFORITES_ICON_WRAPPER = (disabled: boolean, hover: boolean) => {
+  return css`
+    ${WRAPPER};
+    ${getHoverStyles(disabled, hover, 'Favorite')}
+    &:disabled > span {
+      background-image: url(/icons/Favorite-Disabled.svg);
+    }
+  `
+}
+
+export const TRASH_ICON = () => css`
+  ${ICON('18px', '19px', 'Delete-Default.svg')};
 `
 
-export const FAFORITES_ICON = css``
-export const FAVORITES_ICON_LAYOUT = css``
-export const FAFORITES_ICON_WRAPPER = (active: boolean) => {
-  const iconName = active ? 'Favorite-Active.svg' : 'Favorite-Default.svg'
+export const TRASH_ICON_WRAPPER = (disabled: boolean) => {
   return css`
-    .css-${FAFORITES_ICON.name} {
-      ${ICON('27px', '24px', iconName)};
-    }
-    .css-${FAVORITES_ICON_LAYOUT.name} {
-      ${ICON_LAYOUT};
-
-      &:hover ~ .css-${FAFORITES_ICON.name} {
-        background-image: url(/src/icons/Favorite-Hover.svg);
-      }
-      &:active ~ .css-${FAFORITES_ICON.name} {
-        background-image: url(/src/icons/Favorite-Active.svg);
-      }
-      &:disabled ~ .css-${FAFORITES_ICON.name} {
-        background-image: url(/src/icons/Favorite-Disabled.svg);
-      }
-    }
+    ${WRAPPER};
+    ${!disabled &&
+    `&:hover span {
+        background-image: url(/icons/Delete-Hover.svg);
+      }`}
   `
 }
 
-export const SEARCH_ICON = css``
-export const SEARCH_ICON_LAYOUT = css``
+export const SEARCH_ICON = () => css`
+  ${ICON('12px', '12px', 'Search.svg')};
+`
+
 export const SEARCH_ICON_WRAPPER = () => {
   return css`
+    ${WRAPPER};
     line-height: 0;
     font-size: 0px;
-    .css-${SEARCH_ICON.name} {
-      ${ICON('12px', '12px', 'Search.svg')};
-    }
-    .css-${SEARCH_ICON_LAYOUT.name} {
-      ${ICON_LAYOUT};
-    }
-  `
-}
-
-export const TRASH_ICON = css``
-export const TRASH_ICON_LAYOUT = css``
-export const TRASH_ICON_WRAPPER = () => {
-  return css`
-    .css-${TRASH_ICON.name} {
-      ${ICON('18px', '19px', 'Delete-Default.svg')};
-    }
-    .css-${TRASH_ICON_LAYOUT.name} {
-      ${ICON_LAYOUT};
-
-      &:hover ~ .css-${TRASH_ICON.name} {
-        background-image: url(/src/icons/Delete-Hover.svg);
-      }
-    }
   `
 }

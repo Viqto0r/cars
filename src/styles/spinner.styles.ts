@@ -4,7 +4,7 @@ export const SPINNER = (fullscreen: boolean) =>
     position: ${fullscreen ? 'absolute' : 'relative'};
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
     width: ${fullscreen ? '200px' : '40px'};
     height: ${fullscreen ? '200px' : '40px'};
+    transform: translate(-50%, -50%);
   `

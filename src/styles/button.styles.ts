@@ -32,8 +32,42 @@ const BUTTON_MEDIUM = css`
 const BUTTON_LARGE = css`
   padding: 19px 34px;
 `
-export const BUTTON_MENU = css``
-export const BUTTON_INNER = css``
+export const BUTTON_MENU = css`
+  display: flex;
+  align-items: center;
+  width: 12px;
+  height: 12px;
+  margin-right: 7px;
+  & span {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: ${WHITE};
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: ${WHITE};
+    }
+    &:before {
+      top: -5px;
+    }
+    &:after {
+      top: 5px;
+    }
+  }
+`
+export const BUTTON_INNER = css`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+`
 
 const getBtnSize = (size: BtnSize) => {
   switch (size) {
@@ -70,8 +104,8 @@ export const BUTTON = (type: BtnType, size: BtnSize) => css`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
   border: none;
+  border-radius: 5px;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -80,40 +114,6 @@ export const BUTTON = (type: BtnType, size: BtnSize) => css`
   }
   ${getBtnSize(size)}
   ${getBtnType(type)}
-	.css-${BUTTON_MENU.name} {
-    display: flex;
-    align-items: center;
-    width: 12px;
-    height: 12px;
-    margin-right: 7px;
-    & span {
-      background: ${WHITE};
-      position: relative;
-      display: block;
-      width: 100%;
-      height: 2px;
-      &:before,
-      &:after {
-        content: '';
-        position: absolute;
-        display: block;
-        width: 100%;
-        height: 2px;
-        background: ${WHITE};
-      }
-      &:before {
-        top: -5px;
-      }
-      &:after {
-        top: 5px;
-      }
-    }
-  }
-  .css-${BUTTON_INNER.name} {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
 `
 
 const BUTTON_PRIMARY = () => {
@@ -150,11 +150,17 @@ const BUTTON_DANGER = () => {
       border-color: ${DANGER_ACTIVE};
       color: ${WHITE};
     }
+    &:disabled {
+      cursor: default;
+    }
   `
 }
 
 const BUTTON_TRANSPARENT = () => {
   return css`
     background-color: ${TRANSPARENT};
+    &:disabled {
+      cursor: default;
+    }
   `
 }

@@ -6,6 +6,7 @@ import {
   CARD_IMG,
   CARD_IMG_WRAPPER,
   CARD_INFO,
+  CARD_NOT_AVAIBLE,
   CARD_PRICE,
   CARD_SPECIFICATION,
   CARD_TITLE,
@@ -34,29 +35,31 @@ const Card: FC<ICardProps> = ({
   description,
   isFavorite = false,
 }) => {
+  const isMedium = size === 'medium'
   return (
-    <div css={CARD_WRAPPER(size, !availability)}>
+    <div css={CARD_WRAPPER(size)}>
       <div css={CARD_IMG_WRAPPER}>
         <img
           src={getImgSrc(img_src) ?? undefined}
           alt={`${brand} ${model}`}
-          css={CARD_IMG}
+          css={CARD_IMG(isMedium, !availability)}
         />
+        {!availability && <div css={CARD_NOT_AVAIBLE}>Нет в наличии</div>}
       </div>
 
-      <div css={CARD_INFO}>
-        <div css={CARD_TITLE}>
+      <div css={CARD_INFO(isMedium)}>
+        <div css={CARD_TITLE(isMedium)}>
           {brand} {model}
         </div>
-        <div css={CARD_SPECIFICATION}>
+        <div css={CARD_SPECIFICATION(isMedium)}>
           {description && <p css={CARD_DESCRIPTION}>{description}</p>}
           <span>Год: {model_year}</span>
           <span>Цвет: {color}</span>
         </div>
-        <div css={CARD_PRICE}> от {price}</div>
-        <div css={CARD_ACTIONS}>
+        <div css={CARD_PRICE(isMedium)}> от {price}</div>
+        <div css={CARD_ACTIONS(isMedium)}>
           <CardButtons
-            availability={availability}
+            disabled={!availability}
             id={id}
             isFavorite={isFavorite}
             size={size}
