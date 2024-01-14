@@ -5,6 +5,7 @@ import { useAppSelector } from '../../store/hooks'
 import { getEnding } from '../../utils/stringFunctions'
 import { getFavoritesCars } from '../../store/slices/favoritesCarsIdsSlice'
 import { FAFORITES_TITLE } from '../../styles/favorites.styles'
+import { CONTAINER } from '../../styles/container.styles'
 
 const FavoritesPage: FC = () => {
   const favoritesCars = useAppSelector(getFavoritesCars)
@@ -20,7 +21,7 @@ const FavoritesPage: FC = () => {
   }, [favoritesCars])
 
   return (
-    <div>
+    <div css={CONTAINER}>
       <h2 css={FAFORITES_TITLE}>{outputTitle} </h2>
       <List type="column" items={renderCars} />
     </div>

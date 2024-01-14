@@ -50,7 +50,7 @@ const Dropdown: FC = () => {
   return (
     <div css={DROPDOWN} onClick={handleOpenClick}>
       <div css={DROPDOWN_ACTIVE}>
-        <img src="/src/icons/Sort.svg" alt="search" />
+        <img src="/icons/Sort.svg" alt="search" />
         <div css>{sortList.find((item) => item.id === id)?.text}</div>
       </div>
       {showList && (

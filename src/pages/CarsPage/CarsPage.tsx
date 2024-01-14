@@ -4,6 +4,7 @@ import List from '../../components/List/List'
 import Card from '../../components/Card/Card'
 import { getFilteredAndSortedCars } from '../../store/slices/carsSlice'
 import { useAppSelector } from '../../store/hooks'
+import { CONTAINER } from '../../styles/container.styles'
 
 const CarsPage: FC = () => {
   const cars = useAppSelector(getFilteredAndSortedCars)
@@ -20,10 +21,10 @@ const CarsPage: FC = () => {
   }, [cars, favoritesCarsIds])
 
   return (
-    <>
+    <div css={CONTAINER}>
       <Filter />
       <List type="grid" items={renderCars} />
-    </>
+    </div>
   )
 }
 
