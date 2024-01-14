@@ -76,7 +76,9 @@ export const CARD_WRAPPER = (type: SizesType) => {
     display: flex;
     flex-direction: ${isMedium ? 'column' : 'row'};
     gap: ${isMedium ? '20px' : '26px'};
-    border-bottom: ${!isMedium && `1px solid ${GRAY2}`};
     padding-bottom: ${!isMedium && '24px'};
+    &:not(:last-child) {
+      border-bottom: ${!isMedium && `1px solid ${GRAY2}`};
+    }
   `
 }

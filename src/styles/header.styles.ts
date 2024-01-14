@@ -2,12 +2,14 @@ import { css } from '@emotion/react'
 import { BLACK, GRAY2 } from './variables.styles'
 
 export const HEADER = css`
+  border-bottom: 1px solid ${GRAY2};
+`
+export const HEADER_INNER = css`
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 17px 40px;
-  border-bottom: 1px solid ${GRAY2};
+  padding: 17px 0;
   font-size: 16px;
   font-weight: 500;
   line-height: 18px;
